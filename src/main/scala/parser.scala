@@ -1,5 +1,6 @@
 package com.fnplatypus
 import scala.util.parsing.combinator.RegexParsers
+
 class LoopParser extends RegexParsers {
   override type Elem = Char
   def identifier  = """[_\p{L}][_\p{L}\p{Nd}]*""".r
@@ -36,7 +37,7 @@ case class FuncApply(name: String, arguments: List[Any]) extends Statement
 case class Context(values: Map[String, Any], functions: Map[String, FunctionDef])
 
 class TestSimpleParser extends LoopParser {
-  def main() = evaluate(parseAll(statements, "fn foo(a) -> {print a foo(a)} let x = 2 in { foo(x)}"))
+  def main() = evaluate(parseAll(statements, "fn foo(a) -> {print a } let x = 2 in { foo(x) let x = 1 in {print x}} let x = 1 in { foo(x)}"))
   val startingContext: Context = Context(Map[String, Any](), Map[String,FunctionDef]() )
   def evaluate(parseResult: ParseResult[List[Statement]]): Unit = {
     parseResult match {
