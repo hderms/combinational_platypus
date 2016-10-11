@@ -20,3 +20,17 @@ output:
 [error] (run-main-0) java.lang.StackOverflowError
 java.lang.StackOverflowError
 ```
+
+
+## Example 2
+
+```
+  fn foo() -> { 3 }
+  let x = (5 + foo())
+    in {
+        print x
+            }
+```
+
+output:
+`Num(8.0)`
